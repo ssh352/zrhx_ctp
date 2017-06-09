@@ -124,6 +124,7 @@ void ctp_quote::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *p)
     timer.settic(atof(wfunction::ctp_time_char_convert(p->UpdateTime,sizeof(TThostFtdcTimeType))));
     shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
     memcpy(&(*squote),p,sizeof(*p));
+    //cerr<<"ctp_quote\t"<<(*squote).InstrumentID<<(*squote).LastPrice<<endl;
     emit broadcast_quote(squote);
 }
 bool ctp_quote::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)

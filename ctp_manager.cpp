@@ -1,6 +1,8 @@
-#include"ctp_manager.h"
 #include"../gpp_qt/cfg/cfg.h"
-#include "mainwindow.h"
+
+#include"ctp_manager.h"
+#include"mainwindow.h"
+
 
 extern cfg cfg_info;
 
@@ -9,7 +11,6 @@ void ctp_manager::init()
     start_ctp_quote();
     start_ctp_trade();
 
-    QObject::connect(quote, &ctp_quote::broadcast_quote, mw, &MainWindow::show_quote_label);
 }
 //From ctp
 bool ctp_manager::check_trade_init_para()
@@ -24,6 +25,7 @@ void ctp_manager::start_ctp_quote()
 {
     quote=new ctp_quote;
     QObject::connect(quote, &ctp_quote::broadcast_quote, this, &ctp_manager::from_ctp_quote);
+    QObject::connect(quote, &ctp_quote::broadcast_quote, mw, &MainWindow::show_quote_label);
     quote->start();
 }
 void ctp_manager::start_ctp_trade()
