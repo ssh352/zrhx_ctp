@@ -101,16 +101,15 @@ void MainWindow::set_symbols_display(const std::string & symbols)
         quote_labels[*iter]=ql;
     }
 }
-void MainWindow::show_quote_label(CThostFtdcDepthMarketDataField *pDepthMarketData)
+void MainWindow::show_quote_label(std::shared_ptr<CThostFtdcDepthMarketDataField> squote)
 {
-    symbol_price_display(pDepthMarketData->InstrumentID, pDepthMarketData->LastPrice);
+    symbol_price_display((*squote).InstrumentID,(*squote).LastPrice);
 }
 void MainWindow::symbol_price_display(const string & symbol, double price)
 {
     map<string,QLabel *>::iterator iter=quote_labels.find(symbol);
     if(iter!=quote_labels.end())
     {
-     //   iter->second()->setText( QString("'f' format, precision 2, gives %1" ).arg(price));
         quote_labels[symbol]->setText(QString::fromStdString(symbol)+QString("\n%1" ).arg(price,0,'f',2));
         qa->processEvents();
     }
@@ -126,6 +125,4 @@ void MainWindow::show_string_quote(const string &text)
     this->ui->textBrowser->append(QString::fromStdString(text));
     qa->processEvents();
 }
-void MainWindow::show_quote_1(CThostFtdcDepthMarketDataField *pDepthMarketData)
-{
-}
+

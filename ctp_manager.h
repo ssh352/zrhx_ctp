@@ -28,6 +28,8 @@ public:
     void start_ctp_quote();
     void start_ctp_trade();
 
+    void set_mw(MainWindow * _mw){mw=_mw;}
+
 
 public slots:
     //from ctp

@@ -11,18 +11,21 @@ wtimer timer;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    MainWindow * mw=&w;
-    mw->set_qa(&a);
 
     //reg metatype
     qRegisterMetaType<string>("std::string");
     qRegisterMetaType<shared_ptr<CThostFtdcDepthMarketDataField> >("std::shared_ptr<CThostFtdcDepthMarketDataField>");
 
+    MainWindow w;
+    MainWindow * mw=&w;
+    mw->set_qa(&a);
+
+
     //load simu para
     cfg_info.setcfgfile("c:/cfg/simu_trade.cfg");
 
     ctp_manager *cm=new ctp_manager;
+    cm->set_mw(mw);
     cm->init();
 
     w.init();

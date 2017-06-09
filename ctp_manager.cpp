@@ -8,6 +8,8 @@ void ctp_manager::init()
 {
     start_ctp_quote();
     start_ctp_trade();
+
+    QObject::connect(quote, &ctp_quote::broadcast_quote, mw, &MainWindow::show_quote_label);
 }
 //From ctp
 bool ctp_manager::check_trade_init_para()

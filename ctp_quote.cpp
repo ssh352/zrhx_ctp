@@ -121,14 +121,9 @@ void ctp_quote::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecifi
 ///深度行情通知
 void ctp_quote::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *p)
 {
-
-
     timer.settic(atof(wfunction::ctp_time_char_convert(p->UpdateTime,sizeof(TThostFtdcTimeType))));
-
-    CThostFtdcDepthMarketDataField * pemit=new CThostFtdcDepthMarketDataField;
-    memcpy(pemit,p,sizeof(*p));
     shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
-    *squote=(*pemit);
+    memcpy(&(*squote),p,sizeof(*p));
     emit broadcast_quote(squote);
 }
 bool ctp_quote::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)

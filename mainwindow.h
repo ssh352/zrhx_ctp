@@ -8,6 +8,7 @@
 
 #include<string>
 #include<map>
+#include<memory>
 #include"../libs/ctp/ThostFtdcMdApi.h"
 class ctp_manager;
 
@@ -44,8 +45,7 @@ signals:
     void check_add_order(const std::string &,const std::string &,const std::string &,const std::string &,const std::string &);
 
 public slots:
-    void show_quote_1(CThostFtdcDepthMarketDataField *pDepthMarketData);
-    void show_quote_label(CThostFtdcDepthMarketDataField *pDepthMarketData);
+    void show_quote_label(std::shared_ptr<CThostFtdcDepthMarketDataField>);
 
 private slots:
 //    void on_pushButton_clicked();
