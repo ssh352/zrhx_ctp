@@ -27,10 +27,11 @@ void ctp_manager::start_ctp_quote()
 void ctp_manager::start_ctp_trade()
 {
 }
-void ctp_manager::from_ctp_quote(const string & quotestr)
+void ctp_manager::from_ctp_quote(std::shared_ptr<CThostFtdcDepthMarketDataField> squote)
 {
-    cerr<<"from_ctp_quote\t"<<quotestr<<endl;
+    cerr<<"from_ctp_quote\t"<<(*squote).InstrumentID<<"\tASK\t"<<(*squote).AskPrice1<<"\t"<<(*squote).AskVolume1<<endl;
 }
+
 
 //From tactic
 

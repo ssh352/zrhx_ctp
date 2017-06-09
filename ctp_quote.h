@@ -2,6 +2,7 @@
 #define CTP_QUOTE
 #include<iostream>
 #include<iomanip>
+#include <memory>
 #include"../libs/ctp/ThostFtdcMdApi.h"
 #include<QThread>
 #define MAX_CONTRACT_NUMBER 1024
@@ -30,8 +31,9 @@ public:
 
 signals:
 //    void broadcast_quote(const std::string &symbol, const std::string &ba, long level, double price, long size);
-    void broadcast_quote(const std::string quote);
-    protected:
+    void broadcast_quote(std::shared_ptr<CThostFtdcDepthMarketDataField>);
+
+protected:
     void run(){this->init();}
 private:
 	CThostFtdcReqUserLoginField * req;

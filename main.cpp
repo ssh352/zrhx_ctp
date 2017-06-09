@@ -15,8 +15,10 @@ int main(int argc, char *argv[])
     MainWindow * mw=&w;
     mw->set_qa(&a);
 
-	//reg string
+    //reg metatype
     qRegisterMetaType<string>("std::string");
+    qRegisterMetaType<shared_ptr<CThostFtdcDepthMarketDataField> >("std::shared_ptr<CThostFtdcDepthMarketDataField>");
+
     //load simu para
     cfg_info.setcfgfile("c:/cfg/simu_trade.cfg");
 

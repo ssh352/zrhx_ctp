@@ -14,6 +14,7 @@
 #include<QObject>
 #include"mainwindow.h"
 
+#include <memory>
 #include"ctp_quote.h"
 
 using namespace std;
@@ -30,7 +31,7 @@ public:
 
 public slots:
     //from ctp
-    void from_ctp_quote(const string &);//收到行情
+    void from_ctp_quote(std::shared_ptr<CThostFtdcDepthMarketDataField>);//收到行情
     void from_ctp_ack(const string &){}  //收到确认
     void from_ctp_fill(const string &){} //收到成交
     void from_ctp_rej(const string &){}  //收到拒绝

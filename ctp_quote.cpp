@@ -121,25 +121,15 @@ void ctp_quote::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecifi
 ///深度行情通知
 void ctp_quote::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *p)
 {
-    //timer must be set before any slots.
-    //测试可知 复制p 再传送 会有日期错误
+
+
     timer.settic(atof(wfunction::ctp_time_char_convert(p->UpdateTime,sizeof(TThostFtdcTimeType))));
-    cerr << p->InstrumentID << "\tASK\t"<<"\t1\t"<<p->AskPrice1<<"\t"<<p->AskVolume1<<endl;
 
-    std::ostringstream ostr;
-    ostr<<p->InstrumentID;
-    ostr<<"\tASK\t";
-    ostr<<"\t1\t";
-    ostr<<p->AskPrice1;
-    ostr<<"\t";
-    ostr<<p->AskVolume1;
-    //    pqfather->broadcast_marketdata(p);
-//    emit broadcast_book(p);
-//    emit broadcast_quote(p->InstrumentID,"BID",1,p->BidPrice1,p->BidVolume1);
-//    emit broadcast_quote(p->InstrumentID,"ASK",1,p->AskPrice1,p->AskVolume1);
-    broadcast_quote(ostr.str());
-
-
+    CThostFtdcDepthMarketDataField * pemit=new CThostFtdcDepthMarketDataField;
+    memcpy(pemit,p,sizeof(*p));
+    shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
+    *squote=(*pemit);
+    emit broadcast_quote(squote);
 }
 bool ctp_quote::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)
 {
