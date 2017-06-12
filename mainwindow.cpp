@@ -113,7 +113,7 @@ void MainWindow::show_quote_label(std::shared_ptr<CThostFtdcDepthMarketDataField
 }
 void MainWindow::ctr_price_display(const string & ctr, double price)
 {
-    map<string,QLabel *>::iterator iter=quote_labels.find(ctr);
+    auto iter=quote_labels.find(ctr);
 
     if(iter!=quote_labels.end())
     {
@@ -136,24 +136,22 @@ void MainWindow::show_string_quote(const string &text)
 int MainWindow::get_prec(string ctr)
 {
     static map<std::string,int> prec;
-    static smatch results;
-    static regex r;
 
     if(prec.find(ctr)!=prec.end())
     {
         return prec[ctr];
     }
-    if(regex_search(ctr,results,regex("^(TF|T)\\d+")))
+    else if(regex_match(ctr,regex("^(TF|T)\\d+")))
     {
         prec[ctr]=3;
         return 3;
     }
-    else if(regex_search(ctr,results,regex("^(au|fb|bb)\\d+")))
+    else if(regex_match(ctr,regex("^(au|fb|bb)\\d+")))
     {
         prec[ctr]=2;
         return 2;
     }
-    else if(regex_search(ctr,results,regex("^(IF|IH|IC|ZC|j|jm|i)\\d+")))
+    else if(regex_match(ctr,regex("^(IF|IH|IC|ZC|j|jm|i)\\d+")))
     {
         prec[ctr]=1;
         return 1;
