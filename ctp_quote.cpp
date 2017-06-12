@@ -102,8 +102,13 @@ void ctp_quote::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,	CThos
 }
 void ctp_quote::SubscribeMarketData()
 {
-	int iResult = pUserApi->SubscribeMarketData(ppInstrumentID, nppInstrumentID);
-	cout << "--->>> 发送行情订阅请求: " << ((iResult == 0) ? "成功" : "失败") << endl;
+    int iResult = pUserApi->SubscribeMarketData(ppInstrumentID, nppInstrumentID);
+    cout << "--->>> 发送行情订阅请求: " << ((iResult == 0) ? "成功" : "失败") << endl;
+}
+void ctp_quote::SubscribeMarketData(char ** ids ,int n)
+{
+    int iResult = pUserApi->SubscribeMarketData(ids, n);
+    cout << "--->>> 发送行情订阅请求: " << ((iResult == 0) ? "成功" : "失败") << endl;
 }
 
 ///订阅行情应答
@@ -124,7 +129,6 @@ void ctp_quote::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *p)
     timer.settic(atof(wfunction::ctp_time_char_convert(p->UpdateTime,sizeof(TThostFtdcTimeType))));
     shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
     memcpy(&(*squote),p,sizeof(*p));
-    //cerr<<"ctp_quote\t"<<(*squote).InstrumentID<<(*squote).LastPrice<<endl;
     emit broadcast_quote(squote);
 }
 bool ctp_quote::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)

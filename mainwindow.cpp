@@ -12,6 +12,7 @@
 #include<string>
 #include<list>
 #include<iomanip>
+#include<regex>
 
 #include"../gpp_qt/cfg/cfg.h"
 #include"../gpp_qt/wtimer/wtimer.h"
@@ -54,9 +55,10 @@ void MainWindow::set_order_send(const std::string & symbols)
     this->ui->fontComboBox->setFont(QFont("微软雅黑",9,-1,false));
 
     list<string> symbol_list=wfunction::splitstring(symbols);
+    QStringList strList;
     for(list<string>::iterator iter=symbol_list.begin();iter!=symbol_list.end();iter++)
     {
-        this->ui->fontComboBox->addItem(QString::fromStdString(*iter));
+        this->ui->fontComboBox->addItem(iter->c_str());
     }
 
     this->ui->fontComboBox_2->clear();
@@ -76,14 +78,18 @@ void MainWindow::set_order_send(const std::string & symbols)
 
     this->ui->comboBox ->clear();
     this->ui->comboBox->setFont(QFont("微软雅黑",9,-1,false));
-    this->ui->comboBox->addItem("买入");
-    this->ui->comboBox->addItem("卖出");
+    strList = (QStringList() << "买入" << "卖出");
+    this->ui->comboBox->addItems(strList);
+//    this->ui->comboBox->addItem("买入");
+//    this->ui->comboBox->addItem("卖出");
 
     this->ui->comboBox_2 ->clear();
     this->ui->comboBox_2->setFont(QFont("微软雅黑",9,-1,false));
-    this->ui->comboBox_2->addItem("开新仓");
-    this->ui->comboBox_2->addItem("平今");
-    this->ui->comboBox_2->addItem("平昨");
+    strList = (QStringList() << "开新仓" << "平今" << "平昨");
+    this->ui->comboBox_2->addItems(strList);
+//    this->ui->comboBox_2->addItem("开新仓");
+//    this->ui->comboBox_2->addItem("平今");
+//    this->ui->comboBox_2->addItem("平昨");
 
 }
 void MainWindow::set_symbols_display(const std::string & symbols)
@@ -103,14 +109,15 @@ void MainWindow::set_symbols_display(const std::string & symbols)
 }
 void MainWindow::show_quote_label(std::shared_ptr<CThostFtdcDepthMarketDataField> squote)
 {
-    symbol_price_display((*squote).InstrumentID,(*squote).LastPrice);
+    ctr_price_display((*squote).InstrumentID,(*squote).LastPrice);
 }
-void MainWindow::symbol_price_display(const string & symbol, double price)
+void MainWindow::ctr_price_display(const string & ctr, double price)
 {
-    map<string,QLabel *>::iterator iter=quote_labels.find(symbol);
+    map<string,QLabel *>::iterator iter=quote_labels.find(ctr);
+
     if(iter!=quote_labels.end())
     {
-        quote_labels[symbol]->setText(QString::fromStdString(symbol)+QString("\n%1" ).arg(price,0,'f',2));
+        quote_labels[ctr]->setText(QString::fromStdString(ctr)+QString("\n%1" ).arg(price,0,'f',this->get_prec(ctr)));
         qa->processEvents();
     }
     else
@@ -126,3 +133,34 @@ void MainWindow::show_string_quote(const string &text)
     qa->processEvents();
 }
 
+int MainWindow::get_prec(string ctr)
+{
+    static map<std::string,int> prec;
+    static smatch results;
+    static regex r;
+
+    if(prec.find(ctr)!=prec.end())
+    {
+        return prec[ctr];
+    }
+    if(regex_search(ctr,results,regex("^(TF|T)\\d+")))
+    {
+        prec[ctr]=3;
+        return 3;
+    }
+    else if(regex_search(ctr,results,regex("^(au|fb|bb)\\d+")))
+    {
+        prec[ctr]=2;
+        return 2;
+    }
+    else if(regex_search(ctr,results,regex("^(IF|IH|IC|ZC|j|jm|i)\\d+")))
+    {
+        prec[ctr]=1;
+        return 1;
+    }
+    else
+    {
+        prec[ctr]=0;
+        return 0;
+    }
+}

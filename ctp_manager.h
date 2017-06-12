@@ -10,14 +10,15 @@
 #define CTP_MANAGER_H
 
 #include<string>
+#include<memory>
 
 #include<QObject>
 #include"mainwindow.h"
 
-#include <memory>
 #include"ctp_quote.h"
+#include"ctp_trade.h"
+#include"../gpp_qt/cfg/cfg.h"
 
-using namespace std;
 class ctp_manager:public QObject
 {
     Q_OBJECT
@@ -34,13 +35,13 @@ public:
 public slots:
     //from ctp
     void from_ctp_quote(std::shared_ptr<CThostFtdcDepthMarketDataField>);//收到行情
-    void from_ctp_ack(const string &){}  //收到确认
-    void from_ctp_fill(const string &){} //收到成交
-    void from_ctp_rej(const string &){}  //收到拒绝
+    void from_ctp_ack(const std::string &){}  //收到确认
+    void from_ctp_fill(const std::string &){} //收到成交
+    void from_ctp_rej(const std::string &){}  //收到拒绝
 
     //from tactic
-    void from_tc_add(const string &){} //收到发单
-    void from_tc_cxl(const string &){} //收到撤单
+    void from_tc_add(const std::string &){} //收到发单
+    void from_tc_cxl(const std::string &){} //收到撤单
 
 signals:
     //to ctp
@@ -48,21 +49,19 @@ signals:
 
 
     //to tactic
-    void to_tc_quote(const string &);//发送行情数据
-    void to_tc_ack(const string &);  //发送确认
-    void to_tc_fill(const string &); //发送成交
-    void to_tc_rej(const string &);  //发送拒绝
+    void to_tc_quote(const std::string &);//发送行情数据
+    void to_tc_ack(const std::string &);  //发送确认
+    void to_tc_fill(const std::string &); //发送成交
+    void to_tc_rej(const std::string &);  //发送拒绝
 
     void to_tc_run();
     void to_tc_pause();
     void to_tc_resume();
 
     //to mw
-    void to_mw_quote(const string &);//发送行情数据
+    void to_mw_quote(const std::string &);//发送行情数据
 
 private:
-    bool ctp_quote_running;
-    bool ctp_trade_running;
 
     ctp_quote * quote;
 

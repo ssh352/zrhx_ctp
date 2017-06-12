@@ -31,7 +31,7 @@ public:
 
     void show_string_quote(const std::string &);
     void show_string_trade(const std::string &);
-    void symbol_price_display(const std::string & , double);
+    void ctr_price_display(const std::string & , double);
 
     void set_qa(QApplication * p){qa=p;}
 
@@ -53,6 +53,8 @@ private slots:
 //    void on_pushButton_3_clicked();
 //    void on_pushButton_4_clicked();
 private:
+    int get_prec(std::string);
+
     Ui::MainWindow *ui;
     std::map<std::string,QLabel *> quote_labels;
 

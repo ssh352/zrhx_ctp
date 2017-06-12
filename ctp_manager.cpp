@@ -1,10 +1,8 @@
-#include"../gpp_qt/cfg/cfg.h"
-
 #include"ctp_manager.h"
-#include"mainwindow.h"
-
 
 extern cfg cfg_info;
+
+using namespace std;
 
 void ctp_manager::init()
 {

@@ -26,6 +26,7 @@ public:
     void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
     void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
     void SubscribeMarketData();
+    void SubscribeMarketData(char **,int);
 
     bool IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo);
 
