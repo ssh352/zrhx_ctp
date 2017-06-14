@@ -1,12 +1,30 @@
 #ifndef CTP_QUOTE
 #define CTP_QUOTE
+
+
 #include<iostream>
 #include<iomanip>
-#include <memory>
-#include"../libs/ctp/ThostFtdcMdApi.h"
+#include<string>
+#include<sstream>
+#include<list>
+#include<memory>
+#include<windows.h>
+
+#include "mainwindow.h"
+#include<QApplication>
 #include<QThread>
+
+#include"../gpp_qt/cfg/cfg.h"
+#include"../gpp_qt/log_info/log_info.h"
+#include"../gpp_qt/wtimer/wtimer.h"
+#include"../gpp_qt/bar/bars_manage.h"
+#include"../gpp_qt/wfunction/wfunction.h"
+
+#include"../libs/ctp/ThostFtdcMdApi.h"
+
 #define MAX_CONTRACT_NUMBER 1024
 #define MAX_CONTRACT_NAME 1024
+
 class ctp_quote_qthread;
 
 class ctp_quote : public QThread, CThostFtdcMdSpi
@@ -34,19 +52,16 @@ signals:
 //    void broadcast_quote(const std::string &symbol, const std::string &ba, long level, double price, long size);
     void broadcast_quote(std::shared_ptr<CThostFtdcDepthMarketDataField>);
 
-protected:
-    void run(){this->init();}
 private:
+    void run(){this->init();}
+
 	CThostFtdcReqUserLoginField * req;
-	int nRequestID;
-	char * * ppInstrumentID;
-	int nppInstrumentID;
     CThostFtdcMdApi * pUserApi;
+    int nRequestID;
+	int nppInstrumentID;
+    char ** ppInstrumentID;
 
     int ctp_time_length;
-
-
-
 };
 
 #endif

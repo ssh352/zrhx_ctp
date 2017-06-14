@@ -1,14 +1,5 @@
 #include "ctp_trade.h"
 
-#include<Windows.h>
-#include<string>
-#include<memory>
-
-#include<QApplication>
-
-#include"../gpp_qt/wfunction/wfunction.h"
-#include"../gpp_qt/cfg/cfg.h"
-
 extern cfg cfg_info;
 
 using namespace std;
@@ -476,7 +467,7 @@ void ctp_trade::OnRtnOrder(CThostFtdcOrderField *p)
 {
     CThostFtdcOrderField * tmpp=new CThostFtdcOrderField;
     memcpy(tmpp,p,sizeof(CThostFtdcOrderField));
-    emit this->send_rtn_order(tmpp);
+    emit this->to_cm_ack(tmpp);
 
 //    shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
 //    memcpy(&(*squote),p,sizeof(*p));
@@ -487,7 +478,7 @@ void ctp_trade::OnRtnTrade(CThostFtdcTradeField *p)
 {
     CThostFtdcTradeField * tmpp=new CThostFtdcTradeField;
     memcpy(tmpp,p,sizeof(CThostFtdcTradeField));
-    emit this->send_rtn_trade(tmpp);
+    emit this->to_cm_fil(tmpp);
 
 //    shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
 //    memcpy(&(*squote),p,sizeof(*p));

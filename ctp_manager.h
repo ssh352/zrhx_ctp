@@ -42,6 +42,8 @@ public slots:
     //from tactic
     void from_tc_add(const std::string &){} //收到发单
     void from_tc_cxl(const std::string &){} //收到撤单
+    void from_tc_pos(const std::string &){} //查询持仓
+    void from_tc_flt(const std::string &){} //查询今日成交
 
 signals:
     //to ctp
@@ -51,7 +53,8 @@ signals:
     //to tactic
     void to_tc_quote(const std::string &);//发送行情数据
     void to_tc_ack(const std::string &);  //发送确认
-    void to_tc_fill(const std::string &); //发送成交
+    void to_tc_fil(const std::string &); //发送成交
+    void to_tc_flt(const std::string &); //发送今日成交
     void to_tc_rej(const std::string &);  //发送拒绝
 
     void to_tc_run();
@@ -64,6 +67,7 @@ signals:
 private:
 
     ctp_quote * quote;
+    ctp_trade * trade;
 
     MainWindow *mw;
 };

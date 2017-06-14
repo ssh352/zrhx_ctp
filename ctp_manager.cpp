@@ -25,6 +25,9 @@ void ctp_manager::start_ctp_quote()
     QObject::connect(quote, &ctp_quote::broadcast_quote, this, &ctp_manager::from_ctp_quote);
     QObject::connect(quote, &ctp_quote::broadcast_quote, mw, &MainWindow::show_quote_label);
     quote->start();
+
+    trade=new ctp_trade;
+    trade->start();
 }
 void ctp_manager::start_ctp_trade()
 {

@@ -1,9 +1,18 @@
 #ifndef CTP_TRADE
 #define CTP_TRADE
-#include "../libs/ctp/ThostFtdcTraderApi.h"
 #include<string>
 #include<map>
+#include<string>
+#include<memory>
+#include<Windows.h>
+
+#include<QApplication>
 #include<QThread>
+
+#include"../gpp_qt/wfunction/wfunction.h"
+#include"../gpp_qt/cfg/cfg.h"
+
+#include "../libs/ctp/ThostFtdcTraderApi.h"
 
 class ctp_trade : public QThread, public CThostFtdcTraderSpi
 {
@@ -57,16 +66,16 @@ public:
     void OnRtnTrade(CThostFtdcTradeField *pTrade);
 signals:
     void show_warning(const std::string &);
-    void send_rtn_order(CThostFtdcOrderField *pOrder);
-    void send_rtn_trade(CThostFtdcTradeField *pTrade);
     void OnLogin(CThostFtdcRspUserLoginField *pRspUserLogin);
 
-    void to_cm_ack(const std::string &);  //收到确认
-    void to_cm_fill(const std::string &); //收到成交
+    void to_cm_ack(CThostFtdcOrderField *pOrder);  //收到确认
+    void to_cm_fil(CThostFtdcTradeField *pTrade);  //收到成交
     void to_cm_rej(const std::string &);  //收到拒绝
 
 
 private:
+    void run(){this->init();}
+
     CThostFtdcTraderApi * pUserApi;
     TThostFtdcFrontIDType FRONT_ID;
     TThostFtdcSessionIDType SESSION_ID;

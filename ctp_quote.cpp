@@ -1,23 +1,5 @@
 #include"ctp_quote.h"
 
-#include<iostream>
-#include<iomanip>
-#include<string>
-#include<sstream>
-#include<list>
-#include<windows.h>
-
-#include "mainwindow.h"
-#include<QApplication>
-
-#include"../gpp_qt/cfg/cfg.h"
-#include"../gpp_qt/log_info/log_info.h"
-#include"../gpp_qt/wtimer/wtimer.h"
-#include"../gpp_qt/bar/bars_manage.h"
-#include"../gpp_qt/wfunction/wfunction.h"
-
-#include"../libs/ctp/ThostFtdcMdApi.h"
-
 extern wtimer timer;
 extern cfg cfg_info;
 
