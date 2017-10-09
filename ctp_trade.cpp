@@ -322,6 +322,7 @@ void ctp_trade::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField 
     {
         IsErrorRspInfo(pRspInfo);
     }
+    this->ReqQryInstrument("");
 }
 void ctp_trade::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
@@ -356,7 +357,6 @@ void ctp_trade::OnRspQryTradingAccount(CThostFtdcTradingAccountField *pTradingAc
 }
 void ctp_trade::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
-    this->ReqQryInstrument("");
     cerr << "--->>> " << "OnRspQryInvestorPosition" << endl;
     cerr <<  "bIsLast\t"<<bIsLast << endl;
     cerr <<  "nRequestID\t"<<nRequestID << endl;
