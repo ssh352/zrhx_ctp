@@ -326,10 +326,10 @@ void ctp_trade::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField 
 }
 void ctp_trade::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
-	//尚无此需求
-    cerr << endl << "--->>> " << "OnRspQryInstrument" << endl;
-    cerr << pInstrument->InstrumentID << " "<< pInstrument->InstrumentName <<endl;
-    cerr << "nRequtestID" << nRequestID << endl;
+    // zan qie zhu shi diao
+    //cerr << endl << "--->>> " << "OnRspQryInstrument" << endl;
+    //cerr << pInstrument->InstrumentID << " "<< pInstrument->InstrumentName <<endl;
+    //cerr << "nRequtestID" << nRequestID << endl;
     if ( bIsLast && !IsErrorRspInfo(pRspInfo))
     {
         //在此设置合约参数

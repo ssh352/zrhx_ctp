@@ -132,6 +132,12 @@ void MainWindow::show_string_quote(const string &text)
     this->ui->textBrowser->append(QString::fromStdString(text));
     qa->processEvents();
 }
+void MainWindow::show_string_trade(const string &text)
+{
+
+    this->ui->textBrowser_2->append(QString::fromStdString(text));
+    qa->processEvents();
+}
 
 int MainWindow::get_prec(string ctr)
 {

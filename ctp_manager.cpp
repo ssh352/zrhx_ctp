@@ -1,4 +1,5 @@
 #include"ctp_manager.h"
+#include"windows.h"
 
 extern cfg cfg_info;
 
@@ -8,7 +9,6 @@ void ctp_manager::init()
 {
     start_ctp_quote();
     start_ctp_trade();
-
 }
 //From ctp
 bool ctp_manager::check_trade_init_para()
@@ -26,11 +26,24 @@ void ctp_manager::start_ctp_quote()
     QObject::connect(quote, &ctp_quote::broadcast_quote, mw, &MainWindow::show_quote_label);
     quote->start();
 
-    trade=new ctp_trade;
-    trade->start();
 }
 void ctp_manager::start_ctp_trade()
 {
+    om=new ctp_order_manager;
+    trade=new ctp_trade;
+
+    om->set_mw(mw);
+    om->set_trade(trade);
+    om->init();
+
+    QObject::connect(trade, &ctp_trade::OnLogin, om, &ctp_order_manager::OnLogin);
+
+    trade->start();
+//    这部分是进行了下单测试  成功
+//    Sleep(1000);
+//    om->new_order("IF1710","BUY","OPEN",4000,1);
+//    Sleep(1000);
+//    om->new_order("IF1711","BUY","OPEN",4000,1);
 }
 void ctp_manager::from_ctp_quote(std::shared_ptr<CThostFtdcDepthMarketDataField> squote)
 {

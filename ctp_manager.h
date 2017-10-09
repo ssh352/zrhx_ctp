@@ -17,6 +17,7 @@
 
 #include"ctp_quote.h"
 #include"ctp_trade.h"
+#include"ctp_order_manager.h"
 #include"../gpp_qt/cfg/cfg.h"
 
 class ctp_manager:public QObject
@@ -68,6 +69,7 @@ private:
 
     ctp_quote * quote;
     ctp_trade * trade;
+    ctp_order_manager * om;
 
     MainWindow *mw;
 };

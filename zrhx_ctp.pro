@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     ctp_trade.cpp \
     ../gpp_qt/cfg/cfg.cpp \
     ../gpp_qt/cmd_line/cmd_line.cpp \
-    ../gpp_qt/wfunction/wfunction.cpp
+    ../gpp_qt/wfunction/wfunction.cpp \
+    ctp_order_manager.cpp \
+    ctp_order.cpp
 
 HEADERS  += mainwindow.h \
     ctp_manager.h \
@@ -34,7 +36,9 @@ HEADERS  += mainwindow.h \
     ../libs/ctp/ThostFtdcMdApi.h \
     ../libs/ctp/ThostFtdcTraderApi.h \
     ../libs/ctp/ThostFtdcUserApiDataType.h \
-    ../libs/ctp/ThostFtdcUserApiStruct.h
+    ../libs/ctp/ThostFtdcUserApiStruct.h \
+    ctp_order_manager.h \
+    ctp_order.h
 
 FORMS    += mainwindow.ui
 
