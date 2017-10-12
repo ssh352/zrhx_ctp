@@ -37,6 +37,7 @@ void ctp_manager::start_ctp_trade()
     om->init();
 
     QObject::connect(trade, &ctp_trade::OnLogin, om, &ctp_order_manager::OnLogin);
+    QObject::connect(mw, &MainWindow::check_add_order, om, &ctp_order_manager::check_add_order);
 
     trade->start();
 //    这部分是进行了下单测试  成功

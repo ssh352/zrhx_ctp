@@ -11,7 +11,7 @@
 #include"../gpp_qt/cfg/cfg.h"
 
 #include"../../libs/ctp/ThostFtdcTraderApi.h"
-#include"tactic.h"
+
 extern cfg cfg_info;
 
 using namespace std;
@@ -504,5 +504,34 @@ void ctp_order_manager::test_change_order()
             cerr << endl <<"Change start\t" <<iter->first<<"\tNow status\t" <<iter->second->of->OrderStatus<<endl;
             change_order(iter->first,3199,2);
         }
+    }
+}
+void ctp_order_manager::check_add_order(const std::string & ID,const std::string & side ,const std::string & openclose ,const std::string & price ,const std::string & size)
+{
+    if (ID.empty())
+    {
+        QMessageBox::information(mw, "ERROR", "合约为空");
+    }
+    else if (side.empty())
+    {
+        QMessageBox::information(mw, "ERROR", "缺少方向");
+    }
+    else if (openclose.empty())
+    {
+        QMessageBox::information(mw, "ERROR", "缺少开平仓");
+    }
+    else if (price.empty())
+    {
+        QMessageBox::information(mw, "ERROR", "缺少价格");
+    }
+    else if (size.empty())
+    {
+        QMessageBox::information(mw, "ERROR", "缺少手数");
+    }
+    else
+    {
+        string sd=side=="买入"?"BUY":"SELL";
+        string oc=openclose=="开新仓"?"OPEN":openclose=="平今"?"CLOSET":"CLOSE";
+        this->new_order(ID, sd, oc, QString::fromStdString(price).toDouble(), QString::fromStdString(size).toInt());
     }
 }

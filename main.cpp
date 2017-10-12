@@ -3,7 +3,6 @@
 #include <QApplication>
 
 #include"ctp_manager.h"
-#include"tactic.h"
 
 #include"../gpp_qt/cfg/cfg.h"
 #include"../gpp_qt/wtimer/wtimer.h"

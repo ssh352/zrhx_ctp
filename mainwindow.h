@@ -36,7 +36,6 @@ public:
     void set_qa(QApplication * p){qa=p;}
 
 signals:
-    void on_pushButton_5_clicked();
     void on_pushButton_6_clicked();
     void on_pushButton_16_clicked();
     void check_position();
@@ -46,6 +45,7 @@ signals:
 
 public slots:
     void show_quote_label(std::shared_ptr<CThostFtdcDepthMarketDataField>);
+    void on_pushButton_5_clicked();
 
 
 private slots:
@@ -53,6 +53,10 @@ private slots:
 //    void on_pushButton_2_clicked();
 //    void on_pushButton_3_clicked();
 //    void on_pushButton_4_clicked();
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     int get_prec(std::string);
 

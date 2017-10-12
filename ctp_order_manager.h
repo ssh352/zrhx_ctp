@@ -3,7 +3,6 @@
 
 #include"ctp_order.h"
 #include"ctp_trade.h"
-#include"tactic.h"
 
 #include<list>
 #include<map>
@@ -35,6 +34,7 @@ public:
     void  add_OrderRef();
 
 public slots:
+    void check_add_order(const std::string & ID,const std::string & side ,const std::string & openclose ,const std::string & price ,const std::string & size);
     void show_warning(const std::string &);
     void rec_quote(const std::string & symbol, const std::string & ba, long level, double price, long size);
     void rec_book(const CThostFtdcDepthMarketDataField *pDepthMarketData);
@@ -66,7 +66,6 @@ private:
     int nowref;
     int _order_ref_sz;
 
-    tactic * tc;
     ctp_trade * trade;
     MainWindow * mw;
     CThostFtdcInputOrderField * initorder(const std::string & InstrumentID, const std::string & side, const std::string & openclose, double price, long size);

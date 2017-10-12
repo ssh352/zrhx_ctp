@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     ctp_manager.cpp \
-    tactic.cpp \
     ctp_quote.cpp \
     ctp_trade.cpp \
     ../gpp_qt/cfg/cfg.cpp \
@@ -26,7 +25,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     ctp_manager.h \
-    tactic.h \
     ctp_quote.h \
     ctp_trade.h \
     ../gpp_qt/cfg/cfg.h \

@@ -168,3 +168,27 @@ int MainWindow::get_prec(string ctr)
         return 0;
     }
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    string fn=this->ui->textEdit_2->document()->toPlainText().toStdString();
+    cerr<<"document"<<fn<<endl;
+    show_string_trade(fn);//加载交易文件  并将文件内容输出到trade窗口
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    //执行已加载的交易文件
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    //执行手工下单
+    emit check_add_order(
+        this->ui->fontComboBox->currentText().toStdString(),
+        this->ui->comboBox->currentText().toStdString(),
+        this->ui->comboBox_2->currentText().toStdString(),
+        this->ui->fontComboBox_2->currentText().toStdString(),
+        this->ui->fontComboBox_3->currentText().toStdString()
+                );
+}
