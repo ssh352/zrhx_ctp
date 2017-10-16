@@ -42,6 +42,7 @@ public slots:
     void OnRtnOrder(CThostFtdcOrderField *pOrder);
     void OnRtnTrade(CThostFtdcTradeField *pTrade);
     void OnLogin(CThostFtdcRspUserLoginField *pRspUserLogin);
+    void run_order_file(const std::string &);
 
 signals:
     void ack(const std::string & ordername,const std::string & type,const std::string & info);

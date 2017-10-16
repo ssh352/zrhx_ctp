@@ -38,6 +38,7 @@ void ctp_manager::start_ctp_trade()
 
     QObject::connect(trade, &ctp_trade::OnLogin, om, &ctp_order_manager::OnLogin);
     QObject::connect(mw, &MainWindow::check_add_order, om, &ctp_order_manager::check_add_order);
+    QObject::connect(mw, &MainWindow::run_order_file, om, &ctp_order_manager::run_order_file);
 
     trade->start();
 //    这部分是进行了下单测试  成功
@@ -48,7 +49,8 @@ void ctp_manager::start_ctp_trade()
 }
 void ctp_manager::from_ctp_quote(std::shared_ptr<CThostFtdcDepthMarketDataField> squote)
 {
-    cerr<<"from_ctp_quote\t"<<(*squote).InstrumentID<<"\tLastPrice\t"<<(*squote).LastPrice<<"\t"<<(*squote).AskVolume1<<endl;
+    //此处已经测试成功
+    //cerr<<"from_ctp_quote\t"<<(*squote).InstrumentID<<"\tLastPrice\t"<<(*squote).LastPrice<<"\t"<<(*squote).AskVolume1<<endl;
 }
 
 

@@ -39,6 +39,7 @@ signals:
     void on_pushButton_6_clicked();
     void on_pushButton_16_clicked();
     void check_position();
+    void run_order_file(const std::string &);
 
 
     void check_add_order(const std::string &,const std::string &,const std::string &,const std::string &,const std::string &);
@@ -64,6 +65,7 @@ private:
     std::map<std::string,QLabel *> quote_labels;
 
     QApplication * qa;
+    std::string orderfile;
 };
 
 #endif // MAINWINDOW_H

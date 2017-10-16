@@ -33,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::init()
 {
+    //此处可用cfg_info来得到默认值
+    QTextDocument * qdt=new QTextDocument("e:/1.txt",this->ui->textEdit_2);
+    this->ui->textEdit_2->setDocument(qdt);
+
     set_symbols_display(cfg_info.get_para("INSTRUMENT_ID"));
     set_order_send(cfg_info.get_para("INSTRUMENT_ID"));
     set_seperate_label();
@@ -171,14 +175,14 @@ int MainWindow::get_prec(string ctr)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    string fn=this->ui->textEdit_2->document()->toPlainText().toStdString();
-    cerr<<"document"<<fn<<endl;
-    show_string_trade(fn);//加载交易文件  并将文件内容输出到trade窗口
+    orderfile=this->ui->textEdit_2->document()->toPlainText().toStdString();
+    cerr<<"document"<<orderfile<<endl;
+    show_string_trade(orderfile);//加载交易文件  并将文件内容输出到trade窗口
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    //执行已加载的交易文件
+    emit run_order_file(orderfile);//执行已加载的交易文件
 }
 
 void MainWindow::on_pushButton_4_clicked()

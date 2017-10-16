@@ -530,8 +530,52 @@ void ctp_order_manager::check_add_order(const std::string & ID,const std::string
     }
     else
     {
-        string sd=side=="买入"?"BUY":"SELL";
-        string oc=openclose=="开新仓"?"OPEN":openclose=="平今"?"CLOSET":"CLOSE";
+        string sd=side;
+        if(side=="买入" || side=="卖出" )
+        {
+            sd=side=="买入"?"BUY":"SELL";
+        }
+        string oc=openclose;
+        if(openclose=="开新仓" ||openclose=="平今" ||openclose=="平昨")
+        {
+            oc=openclose=="开新仓"?"OPEN":openclose=="平今"?"CLOSET":"CLOSE";
+        }
         this->new_order(ID, sd, oc, QString::fromStdString(price).toDouble(), QString::fromStdString(size).toInt());
     }
+}
+void ctp_order_manager::run_order_file(const std::string & fn)
+{
+
+        auto pfile=new ifstream;
+        pfile->open(fn.c_str());
+        if(! pfile->is_open()) //检测文件存在性
+        {
+            delete pfile;
+            cerr << "********************************************\n*\n*\n*\n";
+            cerr << "Cannot openfile " << fn.c_str() << endl;
+            cerr << "Please set orderfile and restart"<<endl;
+            cerr << "Press any key to continue"<<endl;
+            cerr << "\n*\n*\n*\n********************************************"<<endl;
+            return;
+        }
+        string line;
+        while(getline(*pfile,line))
+        {
+            auto para=wfunction::splitstring(line);
+            if(para.size()!=5)
+            {
+                cerr<<"OrderFile wrong line "<<line<<endl;
+                continue;
+            }
+            auto ctr=para.front();para.pop_front();
+            auto buysell=para.front();para.pop_front();
+            auto openclose=para.front();para.pop_front();
+            auto price=para.front();para.pop_front();
+            auto size=para.front();para.pop_front();
+            cerr<<"FILE\t"<<ctr<<"\t"<<buysell<<"\t"<<openclose<<"\t"<<price<<"\t"<<size<<endl;
+            emit check_add_order(ctr,buysell,openclose,price,size);
+            //cerr<<ctr<<"\t"<<buysell<<"\t"<<openclose<<"\t"<<price<<"\t"<<size<<endl;
+        }
+        pfile->close();
+        delete pfile;
 }
