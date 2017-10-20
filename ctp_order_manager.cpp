@@ -74,7 +74,6 @@ void ctp_order_manager::OnLogin(CThostFtdcRspUserLoginField *pRspUserLogin)
 }
 void ctp_order_manager::OnRtnOrder(CThostFtdcOrderField *p)
 {
-    //mutex.lock();
     string fillstr;
     cerr << endl << "--->>> OnRtnOrder  HEAD"
     <<"\tNowRef\t"<<this->nowref

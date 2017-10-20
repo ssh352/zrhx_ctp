@@ -68,9 +68,10 @@ signals:
     void show_warning(const std::string &);
     void OnLogin(CThostFtdcRspUserLoginField *pRspUserLogin);
 
-    void to_cm_ack(CThostFtdcOrderField *pOrder);  //收到确认
-    void to_cm_fil(CThostFtdcTradeField *pTrade);  //收到成交
-    void to_cm_rej(const std::string &);  //收到拒绝
+    void to_com_ack(CThostFtdcOrderField *pOrder);  //收到
+    void to_com_fil(CThostFtdcTradeField *pTrade);  //收到成交
+
+    void broadcast_Rtn_Order(std::shared_ptr<CThostFtdcOrderField>);
 
 
 private:

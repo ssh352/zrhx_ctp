@@ -80,7 +80,7 @@
                </font>
               </property>
               <property name="text">
-               <string>开启行情</string>
+               <string>待定</string>
               </property>
              </widget>
             </item>
@@ -293,7 +293,7 @@
                </font>
               </property>
               <property name="text">
-               <string>运行策略</string>
+               <string>待定</string>
               </property>
              </widget>
             </item>
@@ -365,7 +365,7 @@
                </font>
               </property>
               <property name="text">
-               <string>暂停策略</string>
+               <string>待定</string>
               </property>
              </widget>
             </item>

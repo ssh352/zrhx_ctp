@@ -297,6 +297,8 @@ void ctp_trade::OnFrontConnected()
 void ctp_trade::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
 
+    FRONT_ID=0;
+    SESSION_ID=0;
     cerr <<endl << "--->>> " << "OnRspUserLogin" << endl;
     if (bIsLast && !IsErrorRspInfo(pRspInfo))
     {
@@ -308,9 +310,9 @@ void ctp_trade::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,CThost
         cerr<<"SESSION_ID init "<<SESSION_ID<<endl;
         cerr<<"--->>>  MaxOrderRef "<<pRspUserLogin->MaxOrderRef<<endl;
         cerr<<"--->>> get exchange trading day = " << pUserApi->GetTradingDay() << endl;
-        CThostFtdcRspUserLoginField tp;
-        memcpy(&tp,pRspUserLogin,sizeof(CThostFtdcRspUserLoginField));
-        emit OnLogin(&tp);
+        CThostFtdcRspUserLoginField *tp=new CThostFtdcRspUserLoginField;
+        memcpy(tp,pRspUserLogin,sizeof(CThostFtdcRspUserLoginField));
+        emit OnLogin(tp);
         ReqSettlementInfoConfirm();
     }
 }
@@ -467,21 +469,13 @@ void ctp_trade::OnRtnOrder(CThostFtdcOrderField *p)
 {
     CThostFtdcOrderField * tmpp=new CThostFtdcOrderField;
     memcpy(tmpp,p,sizeof(CThostFtdcOrderField));
-    emit this->to_cm_ack(tmpp);
-
-//    shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
-//    memcpy(&(*squote),p,sizeof(*p));
-//    emit broadcast_quote(squote);
+    emit this->to_com_ack(tmpp);
 }
 
 void ctp_trade::OnRtnTrade(CThostFtdcTradeField *p)
 {
     CThostFtdcTradeField * tmpp=new CThostFtdcTradeField;
     memcpy(tmpp,p,sizeof(CThostFtdcTradeField));
-    emit this->to_cm_fil(tmpp);
-
-//    shared_ptr<CThostFtdcDepthMarketDataField> squote(new CThostFtdcDepthMarketDataField);
-//    memcpy(&(*squote),p,sizeof(*p));
-//    emit broadcast_quote(squote);
+    emit this->to_com_fil(tmpp);
 }
 
