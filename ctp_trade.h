@@ -45,8 +45,8 @@ public:
     void ReqQryOrder(const std::string &,bool);
     void ReqQryInstrument(const std::string & );
     void ReqQryInstrument(const std::string & ,bool);
-    void ReqQryInvestorPosition(const std::string &);
-    void ReqQryInvestorPosition(const std::string & ,bool);
+    void ReqQryInvestorPosition();
+    void ReqQryInvestorPosition(bool);
 
 	void ReqQryTradingAccount(bool);
     void ReqQryTradingAccount();
@@ -56,7 +56,6 @@ public:
     bool IsTradingOrder(CThostFtdcOrderField *pOrder);
     void ReqUserLogin();
     void ReqSettlementInfoConfirm();
-    void ReqQryInvestorPosition();
 	
 	void ReqOrderInsert(CThostFtdcInputOrderField *);
     void ReqOrderAction(CThostFtdcInputOrderActionField *pOrder);
@@ -70,8 +69,8 @@ signals:
 
     void to_com_ack(CThostFtdcOrderField *pOrder);  //收到
     void to_com_fil(CThostFtdcTradeField *pTrade);  //收到成交
+    void to_com_pos(CThostFtdcInvestorPositionField *pPos);  //shoudaochicang
 
-    void broadcast_Rtn_Order(std::shared_ptr<CThostFtdcOrderField>);
 
 
 private:

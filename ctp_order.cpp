@@ -1,5 +1,5 @@
 #include "ctp_order.h"
-#include"ctp_order_manager.h"
+#include "ctp_order_manager.h"
 ctp_order::ctp_order(CThostFtdcInputOrderField * p,ctp_order_manager * pcom)
 {
     FrontID=pcom->get_front_id();

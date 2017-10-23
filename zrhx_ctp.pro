@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     ../gpp_qt/cmd_line/cmd_line.cpp \
     ../gpp_qt/wfunction/wfunction.cpp \
     ctp_order_manager.cpp \
-    ctp_order.cpp
+    ctp_order.cpp \
+    position.cpp
 
 HEADERS  += mainwindow.h \
     ctp_manager.h \
@@ -36,7 +37,8 @@ HEADERS  += mainwindow.h \
     ../libs/ctp/ThostFtdcUserApiDataType.h \
     ../libs/ctp/ThostFtdcUserApiStruct.h \
     ctp_order_manager.h \
-    ctp_order.h
+    ctp_order.h \
+    position.h
 
 FORMS    += mainwindow.ui
 

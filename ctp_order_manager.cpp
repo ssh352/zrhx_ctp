@@ -201,9 +201,22 @@ void ctp_order_manager::OnRtnOrder(CThostFtdcOrderField *p)
 
 //    mutex.unlock();
 }
+
+void ctp_order_manager::OnRtnPos(CThostFtdcInvestorPositionField *p)
+{
+    cerr <<"InstrumentID\t"<<p->InstrumentID<<endl;
+    cerr <<"BrokerID\t"<<p->BrokerID<<endl;
+    cerr <<"InvestorID\t"<<p->InvestorID<<endl;
+    cerr <<"Position\t"<<p->Position<<endl;
+    cerr <<"TodayPosition\t"<<p->TodayPosition<<endl;
+    cerr <<"PosiDirection\t"<<p->PosiDirection<<endl;
+    string mw_show="";
+    mw_show+=string(p->InstrumentID)+"\tPos\t"+wfunction::itos(p->Position)+"\tDrct\t"+
+            this->DrctNum2Eng(p->PosiDirection);
+    mw->show_string_trade(mw_show);
+}
 void ctp_order_manager::OnRtnTrade(CThostFtdcTradeField *p)
 {
-//    mutex.lock();
     cerr << endl << "--->>> OnRtnTrade  HEAD"
          <<"\tNowRef\t"<<this->nowref
          << "\tBrokerID\t"<<p->BrokerID
@@ -249,7 +262,7 @@ void ctp_order_manager::OnRtnTrade(CThostFtdcTradeField *p)
         _ordername_order[iter->second]->set_uniq_trade(p);
         cerr << endl << "FILL OrderRef\t" << p->OrderRef
         << "\tFill size\t" << p->Volume
-        << "Fill price\t" << p->Price<<endl;
+        << "\tFill price\t" << p->Price<<endl;
     }
     mw->show_string_trade(mw_show);
 
@@ -264,7 +277,6 @@ void ctp_order_manager::OnRtnTrade(CThostFtdcTradeField *p)
     << "\tOrderRef\t" << p->OrderRef
     << "\tFill size\t" << p->Volume
     << "\tFill price\t" << p->Price<<endl;
-//    mutex.unlock();
 }
 CThostFtdcInputOrderField * ctp_order_manager::initorder(const string & InstrumentID, const string & side, const string & openclose, double price, long size)
 {
@@ -577,4 +589,12 @@ void ctp_order_manager::run_order_file(const std::string & fn)
         }
         pfile->close();
         delete pfile;
+}
+const char * ctp_order_manager::DrctNum2Eng(char ori)
+{
+    if('1'==ori){return "net";}
+    else if('2'==ori){return "long";}
+    else if('3'==ori){return "short";}
+    cerr<<"DrctNum2Eng"<<ori<<endl;
+    return "ERROR";
 }

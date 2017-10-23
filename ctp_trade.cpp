@@ -158,11 +158,11 @@ void ctp_trade::ReqQryTradingAccount(bool fast)
         }
     }
 }
-void ctp_trade::ReqQryInvestorPosition(const string & instrument_id)
+void ctp_trade::ReqQryInvestorPosition()
 {
-    ctp_trade::ReqQryInvestorPosition(instrument_id,false);
+    ctp_trade::ReqQryInvestorPosition(false);
 }
-void ctp_trade::ReqQryInvestorPosition(const string & instrument_id,bool fast)
+void ctp_trade::ReqQryInvestorPosition(bool fast)
 {
     CThostFtdcQryInvestorPositionField ipreq;
     memset(&ipreq, 0, sizeof(ipreq));
@@ -362,26 +362,14 @@ void ctp_trade::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInves
     cerr << "--->>> " << "OnRspQryInvestorPosition" << endl;
     cerr <<  "bIsLast\t"<<bIsLast << endl;
     cerr <<  "nRequestID\t"<<nRequestID << endl;
-    if(pInvestorPosition==nullptr){cerr<<"POS NUL"<<endl;}
-    if(pRspInfo==NULL){cerr<<"INFO NUL"<<endl;}
-    if(pInvestorPosition==NULL && pRspInfo==NULL){return;}
-    cerr <<"--->>> ErrorID\t" <<pRspInfo->ErrorID<<endl;
-    cerr <<"--->>> ErrorMsg\t" <<pRspInfo->ErrorMsg<<endl;
+    if(pInvestorPosition==nullptr)
     {
-        cerr <<"InstrumentID\n"<<pInvestorPosition->InstrumentID<<endl;
-        cerr <<"BrokerID\n"<<pInvestorPosition->BrokerID<<endl;
-        cerr <<"InvestorID\n"<<pInvestorPosition->InvestorID<<endl;
-        cerr <<"Position\n"<<pInvestorPosition->Position<<endl;
-        cerr <<"TodayPosition\n"<<pInvestorPosition->TodayPosition<<endl;
-        cerr <<"PosiDirection\n"<<pInvestorPosition->PosiDirection<<endl;
-
+        cerr<<"POS NUL"<<endl;
+        return;
     }
-	if (bIsLast)
-	{
-		IsErrorRspInfo(pRspInfo);
-	}
-    //////////check all instrument
-
+    CThostFtdcInvestorPositionField * tmpp=new CThostFtdcInvestorPositionField;
+    memcpy(tmpp,pInvestorPosition,sizeof(CThostFtdcInvestorPositionField));
+    emit this->to_com_pos(tmpp);
 }
 void ctp_trade::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {

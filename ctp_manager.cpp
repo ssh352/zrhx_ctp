@@ -39,8 +39,10 @@ void ctp_manager::start_ctp_trade()
     QObject::connect(trade, &ctp_trade::OnLogin, om, &ctp_order_manager::OnLogin);
     QObject::connect(trade, &ctp_trade::to_com_ack, om, &ctp_order_manager::OnRtnOrder);
     QObject::connect(trade, &ctp_trade::to_com_fil, om, &ctp_order_manager::OnRtnTrade);
+    QObject::connect(trade, &ctp_trade::to_com_pos, om, &ctp_order_manager::OnRtnPos);
     QObject::connect(mw, &MainWindow::check_add_order, om, &ctp_order_manager::check_add_order);
     QObject::connect(mw, &MainWindow::run_order_file, om, &ctp_order_manager::run_order_file);
+    QObject::connect(mw, &MainWindow::check_position, om, &ctp_order_manager::check_position);
 
     trade->start();
 //    这部分是进行了下单测试  成功

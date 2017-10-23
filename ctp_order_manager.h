@@ -41,8 +41,10 @@ public slots:
 
     void OnRtnOrder(CThostFtdcOrderField *pOrder);
     void OnRtnTrade(CThostFtdcTradeField *pTrade);
+    void OnRtnPos(CThostFtdcInvestorPositionField *pPOS);
     void OnLogin(CThostFtdcRspUserLoginField *pRspUserLogin);
     void run_order_file(const std::string &);
+    void check_position(){this->trade->ReqQryInvestorPosition();}
 
 signals:
     void ack(const std::string & ordername,const std::string & type,const std::string & info);
@@ -72,11 +74,12 @@ private:
     CThostFtdcInputOrderField * initorder(const std::string & InstrumentID, const std::string & side, const std::string & openclose, double price, long size);
     CThostFtdcInputOrderActionField * initorderchange(const std::string & ordername);
 
-    QMutex mutex;
-
     std::map<std::string,int> ctr_pos; //ctr position  now
     std::map<std::string,int> ctr_pos_to; //ctr position
     std::map<std::string,int> ctr_pos_dif; //ctr position
+
+    const char * DrctNum2Eng(char ori);
+
 };
 
 #endif

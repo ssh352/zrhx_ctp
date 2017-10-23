@@ -196,3 +196,8 @@ void MainWindow::on_pushButton_4_clicked()
         this->ui->fontComboBox_3->currentText().toStdString()
                 );
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    emit check_position();
+}
