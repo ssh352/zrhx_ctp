@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = zrhx_ctp
 TEMPLATE = app
+RC_FILE=icon.rc
 
 
 SOURCES += main.cpp\

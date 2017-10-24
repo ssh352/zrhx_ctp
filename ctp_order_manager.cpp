@@ -198,8 +198,6 @@ void ctp_order_manager::OnRtnOrder(CThostFtdcOrderField *p)
     << "\tTraderID\t"<< p->TraderID
     << "\tOrderLocalID\t"<< p->OrderLocalID
     << "\tOrderSysID\t"<< p->OrderSysID <<endl;
-
-//    mutex.unlock();
 }
 
 void ctp_order_manager::OnRtnPos(CThostFtdcInvestorPositionField *p)
@@ -592,9 +590,9 @@ void ctp_order_manager::run_order_file(const std::string & fn)
 }
 const char * ctp_order_manager::DrctNum2Eng(char ori)
 {
-    if('1'==ori){return "net";}
-    else if('2'==ori){return "long";}
-    else if('3'==ori){return "short";}
+    if('1'==ori){return "Net";}
+    else if('2'==ori){return "Long";}
+    else if('3'==ori){return "Short";}
     cerr<<"DrctNum2Eng"<<ori<<endl;
     return "ERROR";
 }
